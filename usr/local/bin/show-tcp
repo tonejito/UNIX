@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# show-tcp - Display tcp established connections
+# Andres Hernandez - tonejito_AT_comunidad_DOT_unam_DOT_mx
+# This script may be used with watch(1) to check periodically
+
+# This script is released under the BSD license
+
+NETSTAT=/usr/sbin/netstat
+GREP=/usr/bin/grep
+EGREP=/usr/bin/egrep
+SORT=/usr/bin/sort
+AWK=/usr/bin/awk
+
+$NETSTAT -na -f inet | \
+$GREP ESTABLISHED | \
+$EGREP -v '127.0.0.1' | \
+$SORT -n -k 5,5 | \
+$AWK '{print $4"\t"$5}'
