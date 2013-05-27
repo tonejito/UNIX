@@ -1,0 +1,23 @@
+#!/bin/bash
+# show-duplicate - Find duplicate files in a folder recursively
+# Andres Hernandez - tonejito_AT_comunidad_DOT_unam_DOT_mx
+# This script was written for Mac OS X
+
+# This script is released under the BSD license
+
+MKTEMP=/usr/bin/mktemp
+FIND=/usr/bin/find
+XARGS=/usr/bin/xargs
+MD5=/sbin/md5
+SORT=/usr/bin/sort
+CAT=/bin/cat
+SED=/usr/bin/sed
+CUT=/usr/bin/cut
+UNIQ=/usr/bin/uniq
+GREP=/usr/bin/grep
+ECHO=/bin/echo
+TEE=/usr/bin/tee
+RM=/bin/rm
+
+TMP=`$MKTEMP -t tmp` ; $FIND ./ -type f -print0 | $XARGS -0 $MD5 | $SORT -n > $TMP && (for md5 in `$CAT $TMP | $SED -e 's/^MD5\ (\(.*)\) =\ \(.*\)/\2 \1/g' | $CUT -d ' ' -f 1 | $SORT -g | $UNIQ -d` ; do $GREP -n $md5 $TMP ; $ECHO -- ; done ) | $TEE ~/duplicate ; $RM -v $TMP
+
