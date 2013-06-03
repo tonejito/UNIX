@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# hibernate - Lock screen and hibernate
+# Andres Hernandez - tonejito_AT_comunidad_DOT_unam_DOT_mx
+# This script was written for Debian GNU/Linux 7 Wheezy
+
+# This script is released under the BSD license
+
+SCREENSAVER=/usr/bin/gnome-screensaver-command
+SUDO=/usr/bin/sudo
+PM_HIBERNATE=/usr/sbin/pm-hibernate
+
+$SCREENSAVER --lock &
+$SUDO $PM_HIBERNATE
+
